@@ -9,6 +9,9 @@ lint-report = "pylint --rcfile=.pylintrc --report=y src/"
 test = "pytest"
 test-list = "pytest -s -v"
 
+# run publisher
+publisher = "python src/publisher.py"
+
 [packages]
 pika = "*"
 requests = "*"
