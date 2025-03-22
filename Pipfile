@@ -10,6 +10,8 @@ test = "pytest"
 test-list = "pytest -s -v"
 
 [packages]
+pika = "*"
+requests = "*"
 
 [dev-packages]
 pytest = "*"
