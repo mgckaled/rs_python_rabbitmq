@@ -16,6 +16,11 @@ def send_telegram_message(message: str) -> None:
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
     payload = {
         "chat_id": {BOT_GROUP_CHAT_ID},
-        "text": message
+        "text": message,
+        "parse_mode":  "MarkdownV2"
     }
-    requests.post(url, data=payload, timeout=10)
+    response = requests.post(url, data=payload, timeout=10)
+
+    # Verifica erros na resposta da API
+    if response.status_code != 200:
+        print("Erro ao enviar mensagem:", response.text)

@@ -44,4 +44,4 @@ class RabbitMQPublisher:
 
 rabbit_mq_publisher = RabbitMQPublisher()
 rabbit_mq_publisher.send_message(
-    {"msg": f'Estou escrevendo do publisher(.py)\n\nmensagem enviada por {USER_NAME}.'})
+    {"msg": f'*Estou escrevendo do publisher(.py)* \n\n_mensagem enviada por_ `{USER_NAME}`.'})
