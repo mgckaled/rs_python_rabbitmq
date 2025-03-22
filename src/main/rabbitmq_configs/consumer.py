@@ -1,16 +1,17 @@
-import json
-
 import pika
 
 
-class RabbitMQPublisher:
-    def __init__(self):
+def rabbitmq_callback(ch, method, properties, body):
+    print(body)
+
+
+class RabbitMQConsumer:
+    def __init__(self) -> None:
         self.__host = "localhost"
         self.__port = 5672
         self.__username = "guest"
         self.__password = "guest"
-        self.__exchange = "minha_exchange"
-        self.__rounting_key = ""
+        self.__queue = "minha_queue"
         self.__channel = self.create_channel()
 
     def create_channel(self) -> None:
@@ -22,17 +23,21 @@ class RabbitMQPublisher:
                 password=self.__password
             )
         )
+
         channel = pika.BlockingConnection(connection_parameters).channel()
-        print(channel)
+        channel.queue_declare(
+            queue=self.__queue,
+            durable=True
+        )
+
+        channel.basic_consume(
+            queue=self.__queue,
+            auto_ack=True,
+            on_message_callback=rabbitmq_callback
+        )
+
         return channel
 
-    def send_message(self, body: dict):
-        self.__channel.basic_publish(
-            exchange=self.__exchange,
-            routing_key=self.__rounting_key,
-            body=json.dumps(body),
-            properties=pika.BasicProperties(delivery_mode=2))
-
-
-rabbit_mq_publisher = RabbitMQPublisher()
-rabbit_mq_publisher.send_message({"msg": "testando meu consumidor"})
+    def start(self):
+        print("Sistema Conectado ao RabbitMQ")
+        self.__channel.start_consuming()

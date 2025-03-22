@@ -9,6 +9,9 @@ lint-report = "pylint --rcfile=.pylintrc --report=y src/"
 test = "pytest"
 test-list = "pytest -s -v"
 
+# start rabbitMQ server
+server = "python run.py"
+
 # run publisher
 publisher = "python src/publisher.py"
 
