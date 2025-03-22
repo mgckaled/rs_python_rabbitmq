@@ -15,9 +15,6 @@ server = "python run.py"
 # run publisher
 publisher = "python src/publisher.py"
 
-# run sender
-sender = "python src/sender.py"
-
 [packages]
 pika = "*"
 requests = "*"

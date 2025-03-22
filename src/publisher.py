@@ -1,6 +1,14 @@
 import json
+import os
 
 import pika
+from dotenv import load_dotenv
+
+# Carrega as variáveis do .env
+load_dotenv()
+
+# Obtém os valores das variáveis de ambiente
+USER_NAME = os.getenv("USER_NAME")
 
 
 class RabbitMQPublisher:
@@ -35,4 +43,5 @@ class RabbitMQPublisher:
 
 
 rabbit_mq_publisher = RabbitMQPublisher()
-rabbit_mq_publisher.send_message({"msg": "testando meu consumidor"})
+rabbit_mq_publisher.send_message(
+    {"msg": f'Estou escrevendo do publisher(.py)\n\nmensagem enviada por {USER_NAME}.'})
